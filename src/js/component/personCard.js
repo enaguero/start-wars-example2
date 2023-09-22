@@ -1,21 +1,22 @@
 import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { Link, useParams } from "react-router-dom";
-import { PersonCard } from "./personCard";
 
-import { Context } from "../store/appContext";
+export const PersonCard = props => {
+    const [person, setPerson] = useState({})
 
-export const ListPeople = props => {
-    const { store, actions } = useContext(Context);
-    const { people } = store;
-
-    const items = people.map((p, index) => <PersonCard data={p} />)
-
+    useEffect(()=> {
+        fetch(props.url)
+        .then(res => res.json())
+        .then(data => setPerson(data))
+        .catch(err => console.error(err))
+    }, [])
     return (
         <div className="jumbotron">
+            <h1 className="display-4">This will show the demo element: {store.demo[params.theid].title}</h1>
 
             <hr className="my-4" />
-            <ul>{items}</ul>
+
             <Link to="/">
                 <span className="btn btn-primary btn-lg" href="#" role="button">
                     Back home
