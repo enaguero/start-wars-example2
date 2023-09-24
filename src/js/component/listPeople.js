@@ -9,7 +9,7 @@ export const ListPeople = props => {
     const { store, actions } = useContext(Context);
     const { people } = store;
 
-    const items = people.map((p, index) => <PersonCard data={p} />)
+    const items = people.map((p, index) => <PersonCard key={index} data={p} />)
 
     return (
         <div className="jumbotron">
