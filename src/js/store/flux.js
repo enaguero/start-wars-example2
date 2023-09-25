@@ -53,6 +53,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(res => res.json())
 					.then(data => setStore({ vehicles: data["results"] }))
 					.catch(err => console.error(err))
+			},
+			addFavorite: (resourceData, resourceType) => {
+				const store = getStore();
+
+				if (store.favorites.filter((item) => item.uid === resourceData.uid && item.resourceType === resourceType).length > 0) {
+					let newFavorites = store.favorites.filter((item) => !(item.uid === resourceData.uid && item.resourceType === resourceType))
+					setStore({ favorites: newFavorites });
+				} else {
+					setStore({ favorites: [...store.favorites, { resourceData, resourceType: resourceType }] })
+				}
 			}
 		}
 	};

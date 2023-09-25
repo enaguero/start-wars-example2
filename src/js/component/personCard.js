@@ -1,9 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { Link, useParams } from "react-router-dom";
+import { Context } from "../store/appContext";
 
 export const PersonCard = props => {
+    const { store, actions } = useContext(Context);
     const [person, setPerson] = useState({})
+
+    const { properties } = person;
 
     useEffect(() => {
         fetch(props.data.url)
@@ -17,6 +21,7 @@ export const PersonCard = props => {
 
             <hr className="my-4" />
             <p>{person.description}</p>
+            <button onClick={(event) => { actions.addFavorite(person, props.resourceType) }} ></button>
             <Link to="/">
                 <span className="btn btn-primary btn-lg" href="#" role="button">
                     Back home
